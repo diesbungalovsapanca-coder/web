@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import type { SiteSettings } from "@/types/site";
+import type { Faq, SiteSettings } from "@/types/site";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+export const SITE_URL = "https://diesbungalov.com";
 
 export function absoluteUrl(path: string) {
   if (path.startsWith("http")) return path;
-  return `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
+  return new URL(path.startsWith("/") ? path : `/${path}`, SITE_URL).toString();
 }
 
 export function createPageMetadata(
@@ -47,14 +47,36 @@ export function createPageMetadata(
   };
 }
 
-export function lodgingJsonLd(settings: SiteSettings) {
+export function lodgingJsonLd(settings: SiteSettings, images?: string[]) {
+  const { ratingValue, reviewCount, priceRange } = settings.seo;
+
+  const imageUrls = (images && images.length > 0 ? images : [settings.seo.ogImage])
+    .filter(Boolean)
+    .map((src) => absoluteUrl(src));
+
+  const aggregateRating =
+    typeof ratingValue === "number" &&
+    ratingValue > 0 &&
+    typeof reviewCount === "number" &&
+    reviewCount > 0
+      ? {
+          "@type": "AggregateRating",
+          ratingValue,
+          reviewCount,
+          bestRating: 5,
+          worstRating: 1
+        }
+      : undefined;
+
   return {
     "@context": "https://schema.org",
     "@type": "LodgingBusiness",
+    "@id": `${SITE_URL}/#lodging`,
     name: settings.brand.name,
     description: settings.brand.description,
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Fevziye Sok. 66/1",
       addressLocality: "Sapanca",
       addressRegion: "Sakarya",
       addressCountry: "TR"
@@ -66,14 +88,55 @@ export function lodgingJsonLd(settings: SiteSettings) {
     },
     hasMap: settings.contact.mapsUrl || undefined,
     areaServed: "Sapanca, Sakarya",
-    url: siteUrl,
+    url: SITE_URL,
     logo: absoluteUrl(settings.brand.logoUrl),
-    image: absoluteUrl(settings.seo.ogImage),
+    image: imageUrls,
+    priceRange: priceRange || undefined,
+    currenciesAccepted: "TRY",
     sameAs: [settings.contact.instagramUrl].filter(Boolean),
     telephone: settings.contact.phone || settings.contact.whatsappPhone,
+    aggregateRating,
     amenityFeature: settings.hero.badges.map((badge) => ({
       "@type": "LocationFeatureSpecification",
-      name: badge
+      name: badge,
+      value: true
+    }))
+  };
+}
+
+function toPlainText(value: string) {
+  return value
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function faqJsonLd(faqs: Faq[]) {
+  const activeFaqs = faqs.filter((faq) => faq.isActive !== false && faq.question && faq.answer);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: activeFaqs.map((faq) => ({
+      "@type": "Question",
+      name: toPlainText(faq.question),
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: toPlainText(faq.answer)
+      }
+    }))
+  };
+}
+
+export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path)
     }))
   };
 }

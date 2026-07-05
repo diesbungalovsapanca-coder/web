@@ -40,7 +40,10 @@ export const defaultSettings: SiteSettings = {
       "Sapanca doğa manzaralı bungalov",
       "Sapanca hafta sonu bungalov"
     ],
-    ogImage: "/media/fallback/dies-hero-fallback.png"
+    ogImage: "/media/fallback/dies-hero-fallback.png",
+    ratingValue: 4.9,
+    reviewCount: 54,
+    priceRange: "₺₺₺"
   },
   hero: {
     title: "Sapanca’da Size Özel Premium Bungalov Deneyimi",

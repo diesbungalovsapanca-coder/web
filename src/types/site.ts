@@ -21,6 +21,9 @@ export interface SeoSettings {
   description: string;
   keywords: string[];
   ogImage: string;
+  ratingValue?: number;
+  reviewCount?: number;
+  priceRange?: string;
 }
 
 export interface HeroSettings {

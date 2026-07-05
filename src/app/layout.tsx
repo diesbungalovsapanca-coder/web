@@ -3,8 +3,10 @@ import type { CSSProperties, ReactNode } from "react";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "@/app/globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
-import { lodgingJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/common/JsonLd";
+import { SITE_URL, lodgingJsonLd } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/data/site";
+import { getFeaturedMedia } from "@/lib/data/media";
 import { BRAND_LOGO_URL } from "@/data/brand";
 
 const inter = Inter({
@@ -19,6 +21,7 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   icons: {
     icon: [{ url: BRAND_LOGO_URL, type: "image/jpeg" }],
     apple: [{ url: BRAND_LOGO_URL, type: "image/jpeg" }]
@@ -26,7 +29,10 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const settings = await getSiteSettings();
+  const [settings, featuredMedia] = await Promise.all([getSiteSettings(), getFeaturedMedia(6)]);
+  const schemaImages = featuredMedia
+    .filter((item) => item.type === "image")
+    .map((item) => item.publicUrl);
 
   return (
     <html
@@ -41,11 +47,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     >
       <body>
         <SiteChrome settings={settings}>{children}</SiteChrome>
-        <script
-          type="application/ld+json"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(lodgingJsonLd(settings)) }}
-        />
+        <JsonLd data={lodgingJsonLd(settings, schemaImages)} />
       </body>
     </html>
   );

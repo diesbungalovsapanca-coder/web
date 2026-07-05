@@ -6,7 +6,8 @@ import { buttonClassName } from "@/components/common/AppButton";
 import { createWhatsappUrl } from "@/lib/whatsapp";
 import { getInstagramHandle } from "@/lib/instagram";
 import { whatsappMessages } from "@/data/whatsapp";
-import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/common/JsonLd";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/data/site";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -25,6 +26,12 @@ export default async function ContactPage() {
 
   return (
     <section className="bg-background pb-20 pt-32">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Ana Sayfa", path: "/" },
+          { name: "İletişim", path: "/iletisim" }
+        ])}
+      />
       <Container className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
         <div>
           <p className="mb-3 text-xs font-bold uppercase tracking-normal text-accent-dark">İletişim</p>

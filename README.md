@@ -21,9 +21,9 @@ npm install
 npm run dev
 ```
 
-Site: `http://localhost:3000`
+Site: Next.js dev server terminalde gösterilen yerel adres
 
-Admin: `http://localhost:3000/admin`
+Admin: dev server adresinde `/admin`
 
 Development varsayılan admin girişi:
 
@@ -39,7 +39,7 @@ Production için `.env` içinde mutlaka `ADMIN_EMAIL`, `ADMIN_PASSWORD` ve `ADMI
 `.env.example` dosyasını `.env.local` olarak kopyalayın.
 
 ```env
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=https://diesbungalov.com
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=

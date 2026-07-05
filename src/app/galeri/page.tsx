@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/common/Container";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
-import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/common/JsonLd";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { getActiveMedia } from "@/lib/data/media";
 import { getSiteSettings } from "@/lib/data/site";
 
@@ -19,6 +20,12 @@ export default async function GalleryPage() {
 
   return (
     <section className="bg-background pb-20 pt-32">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Ana Sayfa", path: "/" },
+          { name: "Galeri", path: "/galeri" }
+        ])}
+      />
       <Container>
         <div className="mb-10 max-w-3xl">
           <p className="mb-3 text-xs font-bold uppercase tracking-normal text-accent-dark">Galeri</p>

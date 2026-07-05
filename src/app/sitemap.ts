@@ -1,12 +1,11 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+import { absoluteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ["", "/galeri", "/bungalov", "/deneyimler", "/konum", "/sss", "/iletisim"].map((path) => ({
-    url: `${siteUrl}${path}`,
+  return ["/", "/galeri", "/bungalov", "/deneyimler", "/konum", "/sss", "/iletisim"].map((path) => ({
+    url: absoluteUrl(path),
     lastModified: new Date(),
-    changeFrequency: path === "" ? "weekly" : "monthly",
-    priority: path === "" ? 1 : 0.75
+    changeFrequency: path === "/" ? "weekly" : "monthly",
+    priority: path === "/" ? 1 : 0.75
   }));
 }

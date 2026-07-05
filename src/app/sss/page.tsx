@@ -5,7 +5,8 @@ import { TrackedLink } from "@/components/common/TrackedLink";
 import { buttonClassName } from "@/components/common/AppButton";
 import { createWhatsappUrl } from "@/lib/whatsapp";
 import { whatsappMessages } from "@/data/whatsapp";
-import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/common/JsonLd";
+import { breadcrumbJsonLd, createPageMetadata, faqJsonLd } from "@/lib/seo";
 import { getFaqs } from "@/lib/data/faqs";
 import { getSiteSettings } from "@/lib/data/site";
 
@@ -23,6 +24,13 @@ export default async function FaqPage() {
 
   return (
     <section className="bg-background pb-20 pt-32">
+      <JsonLd data={faqJsonLd(faqs)} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Ana Sayfa", path: "/" },
+          { name: "Sık Sorulan Sorular", path: "/sss" }
+        ])}
+      />
       <Container>
         <div className="max-w-3xl">
           <p className="mb-3 text-xs font-bold uppercase tracking-normal text-accent-dark">SSS</p>

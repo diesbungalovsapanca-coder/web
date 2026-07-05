@@ -6,7 +6,8 @@ import { TrackedLink } from "@/components/common/TrackedLink";
 import { buttonClassName } from "@/components/common/AppButton";
 import { createWhatsappUrl } from "@/lib/whatsapp";
 import { whatsappMessages } from "@/data/whatsapp";
-import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/common/JsonLd";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { getFeatures } from "@/lib/data/features";
 import { getFeaturedMedia } from "@/lib/data/media";
 import { getSiteSettings } from "@/lib/data/site";
@@ -40,6 +41,12 @@ export default async function BungalovPage() {
 
   return (
     <section className="bg-background pb-20 pt-32">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Ana Sayfa", path: "/" },
+          { name: "Bungalov Detayları", path: "/bungalov" }
+        ])}
+      />
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
