@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/common/Icon";
-import { MediaVisual } from "@/components/common/MediaVisual";
+import { HeroMedia } from "@/components/home/HeroMedia";
 import { TrackedLink } from "@/components/common/TrackedLink";
 import { buttonClassName } from "@/components/common/AppButton";
 import { createWhatsappUrl } from "@/lib/whatsapp";
@@ -14,7 +14,7 @@ export function HeroSection({ settings, media }: { settings: SiteSettings; media
   return (
     <section className="relative min-h-[88svh] overflow-hidden bg-surface-dark text-white">
       <div className="absolute inset-0">
-        <MediaVisual media={media} priority autoPlay className="h-full" sizes="100vw" />
+        <HeroMedia media={media} className="h-full" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(21,18,15,0.82),rgba(21,18,15,0.45)_44%,rgba(21,18,15,0.18)),linear-gradient(0deg,rgba(21,18,15,0.72),transparent_46%)]" />
       </div>
 
