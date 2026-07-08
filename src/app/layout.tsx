@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "@/app/globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
+import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
 import { JsonLd } from "@/components/common/JsonLd";
 import { SITE_URL, lodgingJsonLd } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/data/site";
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body>
         <SiteChrome settings={settings}>{children}</SiteChrome>
         <JsonLd data={lodgingJsonLd(settings, schemaImages)} />
+        <GoogleAnalytics />
       </body>
     </html>
   );

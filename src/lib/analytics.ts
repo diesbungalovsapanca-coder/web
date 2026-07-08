@@ -13,6 +13,12 @@ export type AnalyticsEventName =
 
 export function trackEvent(name: AnalyticsEventName, params?: Record<string, unknown>) {
   if (typeof window === "undefined") return;
-  window.dataLayer?.push({ event: name, ...params });
+
+  if (typeof window.gtag === "function") {
+    window.gtag("event", name, params ?? {});
+  } else {
+    window.dataLayer?.push({ event: name, ...params });
+  }
+
   console.log("[analytics]", name, params);
 }

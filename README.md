@@ -46,7 +46,7 @@ SUPABASE_SERVICE_ROLE_KEY=
 ADMIN_EMAIL=
 ADMIN_PASSWORD=
 ADMIN_SESSION_SECRET=
-NEXT_PUBLIC_GA_ID=
+NEXT_PUBLIC_GA_ID=G-FTGYDHHV8G
 ```
 
 `SUPABASE_SERVICE_ROLE_KEY` sadece server tarafında kullanılır. Client tarafına sızdırmayın.
@@ -175,6 +175,7 @@ Vercel ortam değişkenleri:
 - `ADMIN_EMAIL`
 - `ADMIN_PASSWORD`
 - `ADMIN_SESSION_SECRET`
+- `NEXT_PUBLIC_GA_ID`
 
 ## Bilinen TODO
 
