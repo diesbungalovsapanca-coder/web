@@ -8,7 +8,6 @@ import { JsonLd } from "@/components/common/JsonLd";
 import { SITE_URL, lodgingJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/data/site";
 import { getFeaturedMedia } from "@/lib/data/media";
-import { BRAND_LOGO_URL } from "@/data/brand";
 
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
@@ -25,11 +24,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: BRAND_LOGO_URL, type: "image/jpeg" }
-    ],
-    apple: [{ url: BRAND_LOGO_URL, type: "image/jpeg" }]
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+    shortcut: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
+    apple: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }]
   }
 };
 

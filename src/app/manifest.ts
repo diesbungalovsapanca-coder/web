@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
-import { BRAND_LOGO_URL } from "@/data/brand";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -16,16 +15,10 @@ export default function manifest(): MetadataRoute.Manifest {
     id: SITE_URL,
     icons: [
       {
-        src: "/favicon.svg",
-        sizes: "any",
-        type: "image/svg+xml",
-        purpose: "any"
-      },
-      {
-        src: BRAND_LOGO_URL,
+        src: "/favicon.png",
         sizes: "512x512",
-        type: "image/jpeg",
-        purpose: "maskable"
+        type: "image/png",
+        purpose: "any"
       }
     ]
   };

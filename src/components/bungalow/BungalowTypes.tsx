@@ -1,5 +1,6 @@
 "use client";
 
+import type { MouseEvent } from "react";
 import { useState, useSyncExternalStore } from "react";
 import { buttonClassName } from "@/components/common/AppButton";
 import { Icon } from "@/components/common/Icon";
@@ -54,6 +55,14 @@ function createAvailabilityMessage(type: string, checkIn: string, checkOut: stri
   return `Merhaba, web siteniz üzerinden size ulaşıyorum. ${type} tipi bungalovunuz için ${dateRange} tarih aralığındaki müsaitliği öğrenebilir miyim?`;
 }
 
+function openDatePicker(event: MouseEvent<HTMLInputElement>) {
+  const input = event.currentTarget;
+
+  if (!input.disabled && typeof input.showPicker === "function") {
+    input.showPicker();
+  }
+}
+
 export function BungalowTypes({ whatsappPhone }: { whatsappPhone: string }) {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -95,8 +104,9 @@ export function BungalowTypes({ whatsappPhone }: { whatsappPhone: string }) {
               type="date"
               value={checkIn}
               min={minimumDate}
+              onClick={openDatePicker}
               onChange={(event) => handleCheckInChange(event.target.value)}
-              className="min-h-12 w-full rounded-lg border border-border bg-background px-4 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+              className="min-h-12 w-full cursor-pointer rounded-lg border border-border bg-background px-4 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
             />
           </label>
           <label className="grid gap-2 text-sm font-semibold text-text">
@@ -106,8 +116,9 @@ export function BungalowTypes({ whatsappPhone }: { whatsappPhone: string }) {
               value={checkOut}
               min={minimumCheckOut}
               disabled={!checkIn}
+              onClick={openDatePicker}
               onChange={(event) => setCheckOut(event.target.value)}
-              className="min-h-12 w-full rounded-lg border border-border bg-background px-4 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:opacity-55"
+              className="min-h-12 w-full cursor-pointer rounded-lg border border-border bg-background px-4 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:opacity-55"
             />
           </label>
         </div>
