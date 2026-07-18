@@ -35,12 +35,16 @@ values
 
 insert into faqs (question, answer, category, is_active, sort_order)
 values
-  ('Havuz ısıtmalı mı?', 'DİES BUNGALOV’da havuz kullanımı ve ısıtma durumu dönemsel koşullara göre rezervasyon öncesinde net olarak iletilir.', 'Konaklama', true, 1),
-  ('Jakuzi özel mi?', 'Jakuzi konaklama alanı içinde misafirlerin özel kullanımına yönelik olarak sunulur.', 'Konaklama', true, 2),
-  ('Kaç kişi konaklayabilir?', 'Kapasite bilgisi seçilen tarih ve konaklama düzenine göre WhatsApp üzerinden netleştirilir.', 'Rezervasyon', true, 3),
-  ('Giriş ve çıkış saatleri nedir?', 'Giriş ve çıkış saatleri rezervasyon sırasında misafire yazılı olarak iletilir.', 'Rezervasyon', true, 4),
-  ('Barbekü kullanılabiliyor mu?', 'Uygun hava ve tesis kuralları çerçevesinde barbekü alanı kullanılabilir.', 'Konaklama', true, 5),
-  ('Otopark var mı?', 'Misafirler için otopark imkânı bulunmaktadır.', 'Ulaşım', true, 6),
-  ('Rezervasyon nasıl yapılır?', 'Tarih ve kişi sayınızı WhatsApp üzerinden ilettiğinizde müsaitlik, fiyat ve rezervasyon koşulları size yazılı olarak aktarılır.', 'Rezervasyon', true, 7),
-  ('Kapora / ödeme süreci nasıl ilerliyor?', 'Ödeme ve kapora bilgileri rezervasyon öncesinde resmi iletişim hattı üzerinden net ve yazılı şekilde paylaşılır.', 'Rezervasyon', true, 8),
-  ('Konum bilgisi ne zaman paylaşılır?', 'Genel lokasyon bilgisi web sitesinde yer alır. Detaylı konum bilgisi rezervasyon sürecinde paylaşılır.', 'Ulaşım', true, 9);
+  ('Giriş saati kaç?', 'Giriş saati rezervasyon sırasında misafire yazılı olarak iletilir.', 'Rezervasyon', true, 1),
+  ('Çıkış saati kaç?', 'Çıkış saati rezervasyon sırasında misafire yazılı olarak iletilir.', 'Rezervasyon', true, 2),
+  ('Havuz ısıtmalı mı?', 'DİES BUNGALOV’da havuz kullanımı ve ısıtma durumu dönemsel koşullara göre rezervasyon öncesinde net olarak iletilir.', 'Konaklama', true, 3),
+  ('Kahvaltı dahil mi?', 'Kahvaltı bilgisi ve varsa ek hizmetler rezervasyon öncesinde WhatsApp üzerinden yazılı olarak netleştirilir.', 'Rezervasyon', true, 4),
+  ('Evcil hayvan kabul ediliyor mu?', 'Evcil hayvan kabul durumu seçilen tarih ve tesis koşullarına göre rezervasyon öncesinde net olarak iletilir.', 'Rezervasyon', true, 5),
+  ('Kaç kişi konaklayabilir?', 'Kapasite bilgisi seçilen tarih ve konaklama düzenine göre WhatsApp üzerinden netleştirilir.', 'Rezervasyon', true, 6),
+  ('WiFi var mı?', 'Konaklama alanında Wi-Fi ve TV imkânı bulunmaktadır.', 'Konaklama', true, 7),
+  ('Jakuzi özel mi?', 'Jakuzi konaklama alanı içinde misafirlerin özel kullanımına yönelik olarak sunulur.', 'Konaklama', true, 8),
+  ('Barbekü kullanılabiliyor mu?', 'Uygun hava ve tesis kuralları çerçevesinde barbekü alanı kullanılabilir.', 'Konaklama', true, 9),
+  ('Otopark var mı?', 'Misafirler için otopark imkânı bulunmaktadır.', 'Ulaşım', true, 10),
+  ('Rezervasyon nasıl yapılır?', 'Tarih ve kişi sayınızı WhatsApp üzerinden ilettiğinizde müsaitlik, fiyat ve rezervasyon koşulları size yazılı olarak aktarılır.', 'Rezervasyon', true, 11),
+  ('Kapora / ödeme süreci nasıl ilerliyor?', 'Ödeme ve kapora bilgileri rezervasyon öncesinde resmi iletişim hattı üzerinden net ve yazılı şekilde paylaşılır.', 'Rezervasyon', true, 12),
+  ('Konum bilgisi ne zaman paylaşılır?', 'Genel lokasyon bilgisi web sitesinde yer alır. Detaylı konum bilgisi rezervasyon sürecinde paylaşılır.', 'Ulaşım', true, 13);

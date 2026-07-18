@@ -4,7 +4,7 @@ import { Icon } from "@/components/common/Icon";
 import { TrackedLink } from "@/components/common/TrackedLink";
 import { buttonClassName } from "@/components/common/AppButton";
 import { createWhatsappUrl } from "@/lib/whatsapp";
-import { getInstagramHandle } from "@/lib/instagram";
+import { getInstagramAnalyticsParams, getInstagramHandle } from "@/lib/instagram";
 import { whatsappMessages } from "@/data/whatsapp";
 import { JsonLd } from "@/components/common/JsonLd";
 import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
@@ -44,7 +44,7 @@ export default async function ContactPage() {
             event="whatsapp_click_contact"
             target="_blank"
             rel="noreferrer"
-            className={buttonClassName("dark", "mt-7")}
+            className={buttonClassName("whatsapp", "mt-7")}
           >
             <Icon name="MessageCircle" className="h-5 w-5" />
             WhatsApp’tan Müsaitlik Sor
@@ -69,7 +69,14 @@ export default async function ContactPage() {
                 <Icon name="MessageCircle" className="h-5 w-5 text-accent-dark" />
                 WhatsApp
               </TrackedLink>
-              <TrackedLink href={settings.contact.instagramUrl} event="instagram_click" target="_blank" rel="noreferrer" className="flex items-center gap-3">
+              <TrackedLink
+                href={settings.contact.instagramUrl}
+                event="instagram_click"
+                params={getInstagramAnalyticsParams(settings.contact.instagramUrl, "contact_page")}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3"
+              >
                 <Icon name="Instagram" className="h-5 w-5 text-accent-dark" />
                 Instagram{instagramHandle ? ` · ${instagramHandle}` : ""}
               </TrackedLink>

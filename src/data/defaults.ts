@@ -198,20 +198,44 @@ export const defaultFeatures: Feature[] = [
 
 export const defaultFaqs: Faq[] = [
   {
+    id: "check-in-time-faq",
+    question: "Giriş saati kaç?",
+    answer: "Giriş saati rezervasyon sırasında misafire yazılı olarak iletilir.",
+    category: "Rezervasyon",
+    isActive: true,
+    sortOrder: 1
+  },
+  {
+    id: "check-out-time-faq",
+    question: "Çıkış saati kaç?",
+    answer: "Çıkış saati rezervasyon sırasında misafire yazılı olarak iletilir.",
+    category: "Rezervasyon",
+    isActive: true,
+    sortOrder: 2
+  },
+  {
     id: "heated-pool-faq",
     question: "Havuz ısıtmalı mı?",
     answer: "DİES BUNGALOV’da havuz kullanımı ve ısıtma durumu dönemsel koşullara göre rezervasyon öncesinde net olarak iletilir.",
     category: "Konaklama",
     isActive: true,
-    sortOrder: 1
+    sortOrder: 3
   },
   {
-    id: "jacuzzi-faq",
-    question: "Jakuzi özel mi?",
-    answer: "Jakuzi konaklama alanı içinde misafirlerin özel kullanımına yönelik olarak sunulur.",
-    category: "Konaklama",
+    id: "breakfast-included-faq",
+    question: "Kahvaltı dahil mi?",
+    answer: "Kahvaltı bilgisi ve varsa ek hizmetler rezervasyon öncesinde WhatsApp üzerinden yazılı olarak netleştirilir.",
+    category: "Rezervasyon",
     isActive: true,
-    sortOrder: 2
+    sortOrder: 4
+  },
+  {
+    id: "pets-faq",
+    question: "Evcil hayvan kabul ediliyor mu?",
+    answer: "Evcil hayvan kabul durumu seçilen tarih ve tesis koşullarına göre rezervasyon öncesinde net olarak iletilir.",
+    category: "Rezervasyon",
+    isActive: true,
+    sortOrder: 5
   },
   {
     id: "capacity-faq",
@@ -219,15 +243,23 @@ export const defaultFaqs: Faq[] = [
     answer: "Kapasite bilgisi seçilen tarih ve konaklama düzenine göre WhatsApp üzerinden netleştirilir.",
     category: "Rezervasyon",
     isActive: true,
-    sortOrder: 3
+    sortOrder: 6
   },
   {
-    id: "checkin-faq",
-    question: "Giriş ve çıkış saatleri nedir?",
-    answer: "Giriş ve çıkış saatleri rezervasyon sırasında misafire yazılı olarak iletilir.",
-    category: "Rezervasyon",
+    id: "wifi-faq",
+    question: "WiFi var mı?",
+    answer: "Konaklama alanında Wi-Fi ve TV imkânı bulunmaktadır.",
+    category: "Konaklama",
     isActive: true,
-    sortOrder: 4
+    sortOrder: 7
+  },
+  {
+    id: "jacuzzi-faq",
+    question: "Jakuzi özel mi?",
+    answer: "Jakuzi konaklama alanı içinde misafirlerin özel kullanımına yönelik olarak sunulur.",
+    category: "Konaklama",
+    isActive: true,
+    sortOrder: 8
   },
   {
     id: "bbq-faq",
@@ -235,7 +267,7 @@ export const defaultFaqs: Faq[] = [
     answer: "Uygun hava ve tesis kuralları çerçevesinde barbekü alanı kullanılabilir.",
     category: "Konaklama",
     isActive: true,
-    sortOrder: 5
+    sortOrder: 9
   },
   {
     id: "parking-faq",
@@ -243,7 +275,7 @@ export const defaultFaqs: Faq[] = [
     answer: "Misafirler için otopark imkânı bulunmaktadır.",
     category: "Ulaşım",
     isActive: true,
-    sortOrder: 6
+    sortOrder: 10
   },
   {
     id: "reservation-faq",
@@ -252,7 +284,7 @@ export const defaultFaqs: Faq[] = [
       "Tarih ve kişi sayınızı WhatsApp üzerinden ilettiğinizde müsaitlik, fiyat ve rezervasyon koşulları size yazılı olarak aktarılır.",
     category: "Rezervasyon",
     isActive: true,
-    sortOrder: 7
+    sortOrder: 11
   },
   {
     id: "deposit-faq",
@@ -261,7 +293,7 @@ export const defaultFaqs: Faq[] = [
       "Ödeme ve kapora bilgileri rezervasyon öncesinde resmi iletişim hattı üzerinden net ve yazılı şekilde paylaşılır.",
     category: "Rezervasyon",
     isActive: true,
-    sortOrder: 8
+    sortOrder: 12
   },
 ];
 

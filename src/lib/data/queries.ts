@@ -1,4 +1,4 @@
-import { defaultSettings } from "@/data/defaults";
+import { defaultFaqs, defaultSettings } from "@/data/defaults";
 import { sortByOrder } from "@/lib/utils";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type { MediaItem } from "@/types/media";
@@ -41,6 +41,36 @@ function deepMerge<T>(base: T, override: unknown): T {
     }
   }
   return result as T;
+}
+
+const requiredPublicFaqIds = [
+  "check-in-time-faq",
+  "check-out-time-faq",
+  "heated-pool-faq",
+  "breakfast-included-faq",
+  "pets-faq",
+  "capacity-faq",
+  "wifi-faq"
+];
+
+function normalizeQuestion(question: string) {
+  return question.toLocaleLowerCase("tr-TR").replace(/\s+/g, " ").trim();
+}
+
+function ensureRequiredPublicFaqs(faqs: Faq[]) {
+  const requiredFaqs = defaultFaqs.filter((faq) => requiredPublicFaqIds.includes(faq.id));
+  const existingByQuestion = new Map(faqs.map((faq) => [normalizeQuestion(faq.question), faq]));
+  const requiredQuestions = new Set(requiredFaqs.map((faq) => normalizeQuestion(faq.question)));
+  const prioritizedFaqs = requiredFaqs.map((faq) => {
+    const existing = existingByQuestion.get(normalizeQuestion(faq.question));
+    return {
+      ...(existing ?? faq),
+      sortOrder: faq.sortOrder
+    };
+  });
+  const remainingFaqs = faqs.filter((faq) => !requiredQuestions.has(normalizeQuestion(faq.question)));
+
+  return sortByOrder([...prioritizedFaqs, ...remainingFaqs]);
 }
 
 async function fetchRows<T>(
@@ -123,7 +153,8 @@ export async function getFeatures(activeOnly = true): Promise<Feature[]> {
 
 export async function getFaqs(activeOnly = true): Promise<Faq[]> {
   const local = await readLocalStore();
-  return fetchRows("faqs", mapFaq, activeOnly ? local.faqs.filter((item) => item.isActive) : local.faqs, activeOnly);
+  const faqs = await fetchRows("faqs", mapFaq, activeOnly ? local.faqs.filter((item) => item.isActive) : local.faqs, activeOnly);
+  return activeOnly ? ensureRequiredPublicFaqs(faqs) : faqs;
 }
 
 export async function getTestimonials(activeOnly = true): Promise<Testimonial[]> {

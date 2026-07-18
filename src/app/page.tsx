@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { BungalowTypes } from "@/components/bungalow/BungalowTypes";
+import { Container } from "@/components/common/Container";
 import { AudienceSections } from "@/components/home/AudienceSections";
 import { ExperienceIntro } from "@/components/home/ExperienceIntro";
 import { FaqPreview } from "@/components/home/FaqPreview";
@@ -12,7 +14,8 @@ import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { SignatureExperience } from "@/components/home/SignatureExperience";
 import { SocialProof } from "@/components/home/SocialProof";
 import { TrustBar } from "@/components/home/TrustBar";
-import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/common/JsonLd";
+import { breadcrumbJsonLd, createPageMetadata, faqJsonLd, mediaJsonLd } from "@/lib/seo";
 import { getExperienceCards } from "@/lib/data/experiences";
 import { getFaqs } from "@/lib/data/faqs";
 import { getFeatures } from "@/lib/data/features";
@@ -35,10 +38,21 @@ export default async function HomePage() {
     getTestimonials(),
     getExperienceCards()
   ]);
+  const homeMedia = [heroMedia, ...featuredMedia]
+    .filter((item): item is NonNullable<typeof heroMedia> => Boolean(item))
+    .filter((item, index, items) => items.findIndex((candidate) => candidate.id === item.id) === index);
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "Ana Sayfa", path: "/" }])} />
+      <JsonLd data={faqJsonLd(faqs)} />
+      <JsonLd data={mediaJsonLd(homeMedia)} />
       <HeroSection settings={settings} media={heroMedia} />
+      <section className="bg-background py-20">
+        <Container>
+          <BungalowTypes whatsappPhone={settings.contact.whatsappPhone} />
+        </Container>
+      </section>
       <TrustBar />
       <ExperienceIntro settings={settings} media={featuredMedia[1] ?? heroMedia} />
       <FeatureCards features={features} />

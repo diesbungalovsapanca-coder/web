@@ -4,7 +4,7 @@ import { Container } from "@/components/common/Container";
 import { Icon } from "@/components/common/Icon";
 import { TrackedLink } from "@/components/common/TrackedLink";
 import { createWhatsappUrl } from "@/lib/whatsapp";
-import { getInstagramHandle } from "@/lib/instagram";
+import { getInstagramAnalyticsParams, getInstagramHandle } from "@/lib/instagram";
 import { whatsappMessages } from "@/data/whatsapp";
 import type { SiteSettings } from "@/types/site";
 
@@ -76,6 +76,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             <TrackedLink
               href={settings.contact.instagramUrl}
               event="instagram_click"
+              params={getInstagramAnalyticsParams(settings.contact.instagramUrl, "footer")}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 transition hover:text-white"

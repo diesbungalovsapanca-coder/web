@@ -13,7 +13,8 @@ export default async function AdminLoginPage({ searchParams }: { searchParams: S
       <section className="w-full max-w-md rounded-lg bg-surface p-6 shadow-2xl">
         <p className="font-serif text-3xl text-text">DİES Admin</p>
         <p className="mt-2 text-sm leading-6 text-muted">
-          İçerik ve medya yönetimi için giriş yapın. Development varsayılanı: admin@dies.local / dies-admin
+          İçerik ve medya yönetimi için giriş yapın.
+          {process.env.NODE_ENV !== "production" ? " Development varsayılanı: admin@dies.local / dies-admin" : null}
         </p>
         {params.error ? <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">Giriş bilgileri hatalı.</p> : null}
         <form action={loginAction} className="mt-6 grid gap-4">

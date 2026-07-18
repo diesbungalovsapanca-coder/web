@@ -14,9 +14,9 @@ export function StickyWhatsapp({ settings }: { settings: SiteSettings }) {
         event="whatsapp_click_sticky"
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-4 left-4 right-4 z-40 flex items-center justify-center gap-3 rounded-xl bg-green-dark px-4 py-3 text-white shadow-[0_18px_44px_rgba(21,18,15,0.28)] sm:hidden"
+        className="fixed bottom-4 left-4 right-4 z-40 flex items-center justify-center gap-3 rounded-xl bg-[#25D366] px-4 py-3 text-white shadow-[0_18px_44px_rgba(37,211,102,0.28)] transition hover:bg-[#1DA851] sm:hidden"
       >
-        <Icon name="MessageCircle" className="h-5 w-5 text-accent" />
+        <Icon name="MessageCircle" className="h-5 w-5 text-white" />
         <span className="grid leading-tight">
           <span className="text-sm font-bold">Müsaitlik Sor</span>
           <span className="text-xs text-white/70">WhatsApp’tan hızlı bilgi alın</span>
@@ -27,10 +27,10 @@ export function StickyWhatsapp({ settings }: { settings: SiteSettings }) {
         event="whatsapp_click_sticky"
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-40 hidden h-14 w-14 items-center justify-center rounded-full bg-green-dark text-white shadow-[0_18px_44px_rgba(21,18,15,0.28)] transition hover:bg-surface-dark sm:inline-flex"
+        className="fixed bottom-6 right-6 z-40 hidden h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_18px_44px_rgba(37,211,102,0.28)] transition hover:bg-[#1DA851] sm:inline-flex"
         aria-label="WhatsApp’tan müsaitlik sor"
       >
-        <Icon name="MessageCircle" className="h-6 w-6 text-accent" />
+        <Icon name="MessageCircle" className="h-6 w-6 text-white" />
       </TrackedLink>
     </>
   );

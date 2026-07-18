@@ -5,7 +5,7 @@ import "@/app/globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
 import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
 import { JsonLd } from "@/components/common/JsonLd";
-import { SITE_URL, lodgingJsonLd } from "@/lib/seo";
+import { SITE_URL, lodgingJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/data/site";
 import { getFeaturedMedia } from "@/lib/data/media";
 import { BRAND_LOGO_URL } from "@/data/brand";
@@ -23,8 +23,12 @@ const cormorantGaramond = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  manifest: "/manifest.webmanifest",
   icons: {
-    icon: [{ url: BRAND_LOGO_URL, type: "image/jpeg" }],
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: BRAND_LOGO_URL, type: "image/jpeg" }
+    ],
     apple: [{ url: BRAND_LOGO_URL, type: "image/jpeg" }]
   }
 };
@@ -49,6 +53,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body>
         <SiteChrome settings={settings}>{children}</SiteChrome>
         <JsonLd data={lodgingJsonLd(settings, schemaImages)} />
+        <JsonLd data={websiteJsonLd(settings)} />
         <GoogleAnalytics />
       </body>
     </html>

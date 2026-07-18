@@ -5,6 +5,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const cookieName = "dies_admin_session";
+const sessionMaxAgeSeconds = 60 * 60 * 12;
+const sessionMaxAgeMs = sessionMaxAgeSeconds * 1000;
 
 function adminEmail() {
   return process.env.ADMIN_EMAIL || (process.env.NODE_ENV !== "production" ? "admin@dies.local" : "");
@@ -15,11 +17,15 @@ function adminPassword() {
 }
 
 function sessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD || "dies-dev-session-secret";
+  const configuredSecret = process.env.ADMIN_SESSION_SECRET?.trim();
+  if (configuredSecret) return configuredSecret;
+  return process.env.NODE_ENV !== "production" ? "dies-dev-session-secret" : "";
 }
 
 function sign(value: string) {
-  return createHmac("sha256", sessionSecret()).update(value).digest("hex");
+  const secret = sessionSecret();
+  if (!secret) return null;
+  return createHmac("sha256", secret).update(value).digest("hex");
 }
 
 function safeEqual(a: string, b: string) {
@@ -29,27 +35,31 @@ function safeEqual(a: string, b: string) {
 }
 
 export function canUseAdminLogin() {
-  return Boolean(adminEmail() && adminPassword());
+  const secret = sessionSecret();
+  const hasStrongProductionSecret = process.env.NODE_ENV !== "production" || secret.length >= 32;
+  return Boolean(adminEmail() && adminPassword() && secret && hasStrongProductionSecret);
 }
 
 export async function loginAdmin(email: string, password: string) {
   const expectedEmail = adminEmail();
   const expectedPassword = adminPassword();
-  if (!expectedEmail || !expectedPassword) return false;
+  if (!canUseAdminLogin()) return false;
 
   const validEmail = safeEqual(email, expectedEmail);
   const validPassword = safeEqual(password, expectedPassword);
   if (!validEmail || !validPassword) return false;
 
   const tokenPayload = `${expectedEmail}:${Date.now()}`;
-  const token = `${tokenPayload}:${sign(tokenPayload)}`;
+  const signature = sign(tokenPayload);
+  if (!signature) return false;
+  const token = `${tokenPayload}:${signature}`;
   const cookieStore = await cookies();
   cookieStore.set(cookieName, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: 60 * 60 * 12
+    maxAge: sessionMaxAgeSeconds
   });
   return true;
 }
@@ -60,15 +70,24 @@ export async function logoutAdmin() {
 }
 
 export async function isAdminAuthenticated() {
+  if (!canUseAdminLogin()) return false;
+
   const cookieStore = await cookies();
   const token = cookieStore.get(cookieName)?.value;
   if (!token) return false;
 
   const parts = token.split(":");
   if (parts.length !== 3) return false;
-  const payload = `${parts[0]}:${parts[1]}`;
-  const signature = parts[2];
-  return safeEqual(sign(payload), signature);
+  const [email, issuedAtValue, signature] = parts;
+  const issuedAt = Number(issuedAtValue);
+  const age = Date.now() - issuedAt;
+
+  if (!safeEqual(email, adminEmail())) return false;
+  if (!Number.isFinite(issuedAt) || age < 0 || age > sessionMaxAgeMs) return false;
+
+  const payload = `${email}:${issuedAtValue}`;
+  const expectedSignature = sign(payload);
+  return expectedSignature ? safeEqual(expectedSignature, signature) : false;
 }
 
 export async function requireAdmin() {

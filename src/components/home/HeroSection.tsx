@@ -35,7 +35,7 @@ export function HeroSection({ settings, media }: { settings: SiteSettings; media
               event="whatsapp_click_hero"
               target="_blank"
               rel="noreferrer"
-              className={buttonClassName("primary", "w-full sm:w-auto")}
+              className={buttonClassName("whatsapp", "w-full sm:w-auto")}
             >
               <Icon name="MessageCircle" className="h-5 w-5" />
               {settings.hero.primaryCta}

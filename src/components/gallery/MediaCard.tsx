@@ -7,10 +7,12 @@ import type { MediaItem } from "@/types/media";
 
 export function MediaCard({
   item,
-  onOpen
+  onOpen,
+  priority = false
 }: {
   item: MediaItem;
   onOpen: (item: MediaItem) => void;
+  priority?: boolean;
 }) {
   return (
     <button
@@ -19,7 +21,12 @@ export function MediaCard({
       className="group relative block h-full w-full min-h-[18rem] overflow-hidden rounded-lg bg-border text-left outline-none ring-accent transition focus-visible:ring-4 sm:min-h-[22rem]"
       aria-label={`${item.title} medyasını aç`}
     >
-      <MediaVisual media={item} className="absolute inset-0 transition duration-500 group-hover:scale-[1.03]" sizes="(min-width: 1024px) 25vw, 50vw" />
+      <MediaVisual
+        media={item}
+        priority={priority}
+        className="absolute inset-0 transition duration-500 group-hover:scale-[1.03]"
+        sizes="(min-width: 1024px) 25vw, 50vw"
+      />
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/76 to-transparent p-4 text-white">
         <div className="mb-2 flex items-center gap-2">
           <span className="rounded-full bg-white/14 px-3 py-1 text-[0.7rem] font-bold backdrop-blur-md">

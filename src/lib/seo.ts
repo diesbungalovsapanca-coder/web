@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import type { MediaItem } from "@/types/media";
 import type { Faq, SiteSettings } from "@/types/site";
 
-export const SITE_URL = "https://diesbungalov.com";
+export const SITE_URL = "https://www.diesbungalov.com";
 
 export function absoluteUrl(path: string) {
   if (path.startsWith("http")) return path;
@@ -34,7 +35,7 @@ export function createPageMetadata(
       description,
       url,
       siteName: settings.brand.name,
-      images: [{ url: image }],
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
       locale: "tr_TR",
       type: "website"
     },
@@ -43,6 +44,26 @@ export function createPageMetadata(
       title,
       description,
       images: [image]
+    }
+  };
+}
+
+export function websiteJsonLd(settings: SiteSettings) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: settings.brand.name,
+    description: settings.seo.description,
+    inLanguage: "tr-TR",
+    publisher: {
+      "@id": `${SITE_URL}/#lodging`
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE_URL}/arama?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
     }
   };
 }
@@ -125,6 +146,60 @@ export function faqJsonLd(faqs: Faq[]) {
         text: toPlainText(faq.answer)
       }
     }))
+  };
+}
+
+function mediaDescription(item: MediaItem) {
+  return toPlainText(item.description || item.alt || item.title);
+}
+
+function mediaThumbnailUrl(item: MediaItem) {
+  if (item.type === "video") return item.posterUrl || item.thumbnailUrl || item.publicUrl;
+  return item.thumbnailUrl || item.publicUrl;
+}
+
+function mediaEncodingFormat(item: MediaItem) {
+  if (item.type === "video") return "video/mp4";
+  if (item.publicUrl.endsWith(".png")) return "image/png";
+  if (item.publicUrl.endsWith(".webp")) return "image/webp";
+  return "image/jpeg";
+}
+
+export function mediaJsonLd(media: MediaItem[], options?: { maxItems?: number }) {
+  const maxItems = options?.maxItems ?? 24;
+  const activeMedia = media
+    .filter((item) => item.isActive !== false && item.publicUrl && item.category !== "logo")
+    .slice(0, maxItems);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": activeMedia.map((item) => {
+      const base = {
+        "@type": item.type === "video" ? "VideoObject" : "ImageObject",
+        "@id": `${absoluteUrl(item.publicUrl)}#${item.type === "video" ? "video" : "image"}`,
+        name: item.title,
+        description: mediaDescription(item),
+        url: absoluteUrl(item.publicUrl),
+        contentUrl: absoluteUrl(item.publicUrl),
+        thumbnailUrl: absoluteUrl(mediaThumbnailUrl(item)),
+        encodingFormat: mediaEncodingFormat(item)
+      };
+
+      if (item.type === "video") {
+        return {
+          ...base,
+          uploadDate: item.createdAt,
+          caption: item.alt || item.title
+        };
+      }
+
+      return {
+        ...base,
+        caption: item.alt || item.title,
+        width: item.width || undefined,
+        height: item.height || undefined
+      };
+    })
   };
 }
 

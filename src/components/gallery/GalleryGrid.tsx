@@ -8,6 +8,7 @@ import { MediaLightbox } from "@/components/gallery/MediaLightbox";
 import { TrackedLink } from "@/components/common/TrackedLink";
 import { Icon } from "@/components/common/Icon";
 import { createWhatsappUrl } from "@/lib/whatsapp";
+import { getInstagramAnalyticsParams, getInstagramHandle } from "@/lib/instagram";
 import { trackEvent } from "@/lib/analytics";
 import { whatsappMessages } from "@/data/whatsapp";
 import type { MediaCategory, MediaItem } from "@/types/media";
@@ -22,6 +23,7 @@ export function GalleryGrid({
 }) {
   const [category, setCategory] = useState<"all" | MediaCategory>("all");
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const instagramHandle = getInstagramHandle(settings.contact.instagramUrl) ?? "Instagram";
 
   const publicMedia = useMemo(() => media.filter((item) => item.category !== "logo"), [media]);
 
@@ -56,7 +58,7 @@ export function GalleryGrid({
       <div className="mt-8 grid grid-flow-dense gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((item, index) => (
           <div key={item.id} className={item.type === "video" || index % 5 === 0 ? "sm:row-span-2" : ""}>
-            <MediaCard item={item} onOpen={() => openItem(item, index)} />
+            <MediaCard item={item} priority={index === 0} onOpen={() => openItem(item, index)} />
           </div>
         ))}
         <div className="flex min-h-[18rem] flex-col justify-between rounded-lg bg-green-dark p-6 text-white sm:min-h-[22rem]">
@@ -67,15 +69,30 @@ export function GalleryGrid({
               Tarih ve kişi sayınızı iletin; müsaitlik ve fiyat bilgisi resmi WhatsApp hattımızdan net şekilde aktarılsın.
             </p>
           </div>
-          <TrackedLink
-            href={createWhatsappUrl(settings.contact.whatsappPhone, whatsappMessages.gallery)}
-            event="whatsapp_click_gallery"
-            target="_blank"
-            rel="noreferrer"
-            className={buttonClassName("primary", "mt-6")}
-          >
-            WhatsApp’tan bilgi al
-          </TrackedLink>
+          <div className="mt-6 grid gap-3">
+            <TrackedLink
+              href={createWhatsappUrl(settings.contact.whatsappPhone, whatsappMessages.gallery)}
+              event="whatsapp_click_gallery"
+              target="_blank"
+              rel="noreferrer"
+              className={buttonClassName("primary", "w-full")}
+            >
+              <Icon name="MessageCircle" className="h-4 w-4" />
+              WhatsApp’tan bilgi al
+            </TrackedLink>
+            <TrackedLink
+              href={settings.contact.instagramUrl}
+              event="instagram_click"
+              params={getInstagramAnalyticsParams(settings.contact.instagramUrl, "gallery")}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Instagram'da ${instagramHandle} hesabını aç`}
+              className={buttonClassName("secondary", "w-full")}
+            >
+              <Icon name="Instagram" className="h-5 w-5" />
+              {instagramHandle}
+            </TrackedLink>
+          </div>
         </div>
       </div>
       <MediaLightbox

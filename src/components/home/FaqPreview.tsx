@@ -20,7 +20,7 @@ export function FaqPreview({ faqs }: { faqs: Faq[] }) {
           </Link>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
-          {faqs.slice(0, 6).map((faq) => (
+          {faqs.slice(0, 8).map((faq) => (
             <article key={faq.id} className="rounded-lg border border-border bg-background p-5">
               <h3 className="text-base font-bold text-text">{faq.question}</h3>
               <p className="mt-3 text-sm leading-7 text-muted">{faq.answer}</p>

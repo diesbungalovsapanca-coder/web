@@ -18,7 +18,7 @@ export function ReservationSteps({ settings }: { settings: SiteSettings }) {
             event="whatsapp_click_hero"
             target="_blank"
             rel="noreferrer"
-            className={buttonClassName("dark", "mt-7")}
+            className={buttonClassName("whatsapp", "mt-7")}
           >
             <Icon name="MessageCircle" className="h-5 w-5" />
             WhatsApp’tan Müsaitlik Sor

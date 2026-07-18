@@ -11,6 +11,8 @@
   --color-accent-dark: var(--accent-dark);
   --color-green: var(--green);
   --color-green-dark: var(--green-dark);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-dark: var(--whatsapp-dark);
 }
 
 :root {
@@ -24,6 +26,8 @@
   --accent-dark: #8a6438;
   --green: #4e5d48;
   --green-dark: #2f3a2b;
+  --whatsapp: #25d366;
+  --whatsapp-dark: #1daf54;
 }
 
 * {

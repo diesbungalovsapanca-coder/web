@@ -13,7 +13,7 @@ export async function GET() {
   const pages: [string, string][] = [
     ["/", "Ana sayfa — genel tanıtım ve öne çıkanlar"],
     ["/bungalov", "Bungalov detayları ve olanaklar"],
-    ["/galeri", "Fotoğraf ve video galerisi"],
+    ["/galeri", "Fotoğraf galerisi"],
     ["/deneyimler", "Çiftler, balayı, hafta sonu ve kış konaklama senaryoları"],
     ["/konum", "Konum, ulaşım ve yakın çevre"],
     ["/sss", "Sık sorulan sorular"],

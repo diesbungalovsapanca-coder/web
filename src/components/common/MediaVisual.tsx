@@ -56,6 +56,7 @@ export function MediaVisual({
         alt={media.alt || media.title}
         fill
         priority={priority}
+        fetchPriority={priority ? "high" : undefined}
         sizes={sizes}
         className={cn("object-cover", imageClassName)}
       />

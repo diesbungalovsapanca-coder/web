@@ -1,7 +1,7 @@
 import { Container } from "@/components/common/Container";
 import { Icon } from "@/components/common/Icon";
 import { TrackedLink } from "@/components/common/TrackedLink";
-import { getInstagramHandle } from "@/lib/instagram";
+import { getInstagramAnalyticsParams, getInstagramHandle } from "@/lib/instagram";
 import type { SiteSettings } from "@/types/site";
 
 export function SocialProof({ settings }: { settings: SiteSettings }) {
@@ -19,6 +19,7 @@ export function SocialProof({ settings }: { settings: SiteSettings }) {
           <TrackedLink
             href={settings.contact.instagramUrl}
             event="instagram_click"
+            params={getInstagramAnalyticsParams(settings.contact.instagramUrl, "home_social_proof")}
             target="_blank"
             rel="noreferrer"
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-green-dark px-5 py-3 text-sm font-bold text-white"
