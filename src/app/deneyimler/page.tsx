@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   return createPageMetadata(settings, {
     title: "Deneyimler",
-    description: "Çiftler, balayı, özel günler, hafta sonu kaçamağı ve kış tatili için DİES BUNGALOV Sapanca deneyimleri.",
+    description: "Çiftler, balayı, özel günler, hafta sonu molası ve kış tatili için DİES BUNGALOV Sapanca konaklama deneyimleri.",
     path: "/deneyimler"
   });
 }
@@ -47,9 +47,11 @@ export default async function ExperiencesPage() {
       <Container>
         <div className="max-w-3xl">
           <p className="mb-3 text-xs font-bold uppercase tracking-normal text-accent-dark">Deneyimler</p>
-          <h1 className="font-serif text-5xl leading-tight text-text">DİES BUNGALOV’u farklı kaçamak niyetleriyle keşfedin</h1>
+          <h1 className="font-serif text-3xl leading-tight text-text sm:text-4xl lg:text-5xl">
+            DİES BUNGALOV’u size uygun konaklama planıyla keşfedin
+          </h1>
           <p className="mt-5 text-lg leading-8 text-muted">
-            Romantik konaklama, özel gün, kısa hafta sonu molası veya kış kaçamağı. Her senaryo için WhatsApp’tan net bilgi alabilirsiniz.
+            Romantik konaklama, özel gün, kısa hafta sonu molası veya kış tatili. Her plan için WhatsApp’tan net bilgi alabilirsiniz.
           </p>
         </div>
 

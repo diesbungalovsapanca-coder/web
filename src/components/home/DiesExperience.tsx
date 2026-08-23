@@ -47,7 +47,7 @@ export function DiesExperience({ settings, media }: { settings: SiteSettings; me
         href="/deneyimler"
         className="mt-8 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-accent transition hover:text-white"
       >
-        Kaçamak niyetinize göre deneyimler
+        Konaklama deneyimlerini inceleyin
         <Icon name="ChevronRight" className="h-4 w-4" />
       </Link>
     </Section>
