@@ -5,7 +5,7 @@ values
     "logoUrl": "/insta/posts/18047115356088151.jpg",
     "location": "Sapanca, Sakarya",
     "slogan": "Sapanca’da Size Özel Premium Bungalov Deneyimi",
-    "description": "DİES BUNGALOV; Sapanca’da özel havuz, jakuzi, ateş çukuru, barbekü ve doğa manzarasıyla çiftler, özel günler ve sakin kaçamaklar için premium bungalov deneyimi sunar."
+    "description": "DİES BUNGALOV; Sapanca’da özel havuz, jakuzi, ateş çukuru, barbekü ve doğa manzarasıyla çiftler, özel günler ve sakin tatiller için premium bungalov deneyimi sunar."
   }'::jsonb),
   ('contact', '{
     "phone": "",
