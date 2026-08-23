@@ -22,7 +22,7 @@ export const defaultSettings: SiteSettings = {
     location: "Sapanca, Sakarya",
     slogan: "Sapanca’da Size Özel Premium Bungalov Deneyimi",
     description:
-      "DİES BUNGALOV; Sapanca’da özel havuz, jakuzi, ateş çukuru, barbekü ve doğa manzarasıyla çiftler, özel günler ve sakin kaçamaklar için premium bungalov deneyimi sunar."
+      "DİES BUNGALOV; Sapanca’da özel havuz, jakuzi, ateş çukuru, barbekü ve doğa manzarasıyla çiftler, özel günler ve sakin tatiller için premium bungalov deneyimi sunar."
   },
   contact: {
     phone: "",
@@ -325,7 +325,7 @@ export const defaultExperienceCards: ExperienceCard[] = [
   },
   {
     id: "weekend",
-    title: "Hafta Sonu Kaçamağı İçin",
+    title: "Hafta Sonu Molası İçin",
     description: "Şehir temposundan uzaklaşıp kısa sürede doğaya geçmek isteyenler için.",
     ctaLabel: "Hafta sonu müsaitlik sor",
     ctaMessage: "Merhaba, DİES BUNGALOV hafta sonu müsaitliği hakkında bilgi almak istiyorum.",

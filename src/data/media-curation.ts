@@ -36,7 +36,7 @@ export const mediaCuration: Record<string, MediaCuration> = {
   "18301101097215281": { title: "Bahçede leylek ziyareti: havuz ve yeşillik", category: "exterior", isFeatured: true },
   // Videoya gömülü "son 3 gün" kampanya metni güncelliğini yitirdi — güncel kampanya videosu gelene kadar pasif.
   "18492428848005380": { title: "Erken rezervasyon kampanyası", category: "uncategorized", isActive: false },
-  "18502885297048891": { title: "Bahçe peyzajı ve mahremiyet detayları", category: "details" },
+  "18502885297048891": { title: "Bahçe peyzajı ve özel alan detayları", category: "details" },
 
   // Fotoğraflar
   "17858241420382342": { title: "Üst kattan salon görünümü", category: "interior" },
