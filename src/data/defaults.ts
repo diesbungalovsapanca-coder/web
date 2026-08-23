@@ -53,7 +53,7 @@ export const defaultSettings: SiteSettings = {
   hero: {
     title: "Sapanca’da Size Özel Premium Bungalov Deneyimi",
     subtitle:
-      "Isıtmalı havuz, jakuzi, ateş çukuru ve doğa manzarasıyla şehirden uzak, konfordan ödün vermeyen özel bir kaçış.",
+      "Isıtmalı havuz, jakuzi, ateş çukuru ve doğa manzarasıyla şehirden uzak, konfordan ödün vermeyen huzurlu bir doğa tatili.",
     primaryCta: "WhatsApp’tan Müsaitlik Sor",
     secondaryCta: "Galeriyi İncele",
     badges: ["Isıtmalı Havuz", "Jakuzi", "Ateş Çukuru", "Doğa Manzarası", "Otopark"]
@@ -62,7 +62,7 @@ export const defaultSettings: SiteSettings = {
     experienceTitle:
       "DİES’te konaklama, sadece bir gece kalmak değil; size özel bir atmosfer yaşamak demek.",
     experienceBody:
-      "Özel havuz, jakuzi, ateş çukuru ve sıcak iç mekân; çiftler ve özel günler için sakin, premium bir kaçış.",
+      "Özel havuz, jakuzi, ateş çukuru ve sıcak iç mekân; çiftler ve özel günler için sakin ve premium bir konaklama.",
     trustReservationTitle: "Güvenli Rezervasyon",
     trustReservationBody:
       "Rezervasyon süreci resmi iletişim hattımızdan yazılı ilerler. Müsaitlik, fiyat ve ödeme koşulları size net şekilde iletilir.",
@@ -306,7 +306,7 @@ export const defaultExperienceCards: ExperienceCard[] = [
   {
     id: "couples",
     title: "Çiftler İçin",
-    description: "Sessiz, özel ve romantik bir kaçış.",
+    description: "Sessiz, huzurlu ve romantik bir konaklama.",
     ctaLabel: "Bu deneyim için bilgi al",
     ctaMessage: "Merhaba, DİES BUNGALOV çift konaklaması hakkında bilgi almak istiyorum.",
     mediaCategory: "details",
