@@ -37,7 +37,7 @@ export default async function ExperiencesPage() {
   };
 
   return (
-    <section className="bg-background pb-20 pt-32">
+    <section className="bg-background pb-14 pt-24 sm:pb-20 lg:pt-32">
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Ana Sayfa", path: "/" },

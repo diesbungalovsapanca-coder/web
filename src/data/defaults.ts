@@ -10,6 +10,11 @@ import type {
   Testimonial
 } from "@/types/site";
 
+// Aynı metnin iki ayrı alanda kopyalanmasını önler (SSS cevabı ↔ rezervasyon/konum alanı).
+const PAYMENT_NOTE =
+  "Ödeme ve kapora bilgileri rezervasyon öncesinde resmi iletişim hattı üzerinden net ve yazılı şekilde paylaşılır.";
+const PARKING_NOTE = "Misafirler için otopark imkânı bulunmaktadır.";
+
 export const defaultSettings: SiteSettings = {
   brand: {
     name: "DİES BUNGALOV",
@@ -57,15 +62,15 @@ export const defaultSettings: SiteSettings = {
     experienceTitle:
       "DİES’te konaklama, sadece bir gece kalmak değil; size özel bir atmosfer yaşamak demek.",
     experienceBody:
-      "Doğanın içinde, modern konforla hazırlanmış DİES BUNGALOV; özel havuzu, jakuzisi, ateş çukuru ve sıcak iç mekânıyla çiftler ve özel günler için sakin, güvenli ve premium bir kaçış sunar.",
+      "Özel havuz, jakuzi, ateş çukuru ve sıcak iç mekân; çiftler ve özel günler için sakin, premium bir kaçış.",
     trustReservationTitle: "Güvenli Rezervasyon",
     trustReservationBody:
-      "DİES BUNGALOV rezervasyon süreci resmi iletişim hattımız üzerinden yazılı olarak ilerler. Müsaitlik, fiyat, ödeme koşulları ve konaklama detayları size net şekilde iletilir.",
+      "Rezervasyon süreci resmi iletişim hattımızdan yazılı ilerler. Müsaitlik, fiyat ve ödeme koşulları size net şekilde iletilir.",
     finalCtaTitle: "DİES BUNGALOV’da yerinizi ayırmak için ilk adımı atın.",
     finalCtaBody:
       "Tarih ve kişi sayınızı WhatsApp üzerinden iletin; müsaitlik, fiyat ve rezervasyon detaylarını size net şekilde aktaralım.",
     locationBody:
-      "DİES BUNGALOV, Sapanca’da doğayla iç içe sakin bir konumda yer alır. Konumu haritada inceleyebilir, ulaşım için WhatsApp’tan destek alabilirsiniz."
+      "Sapanca’da doğayla iç içe sakin bir konumdayız. Ulaşım için WhatsApp’tan destek alabilirsiniz."
   },
   reservation: {
     steps: [
@@ -82,8 +87,7 @@ export const defaultSettings: SiteSettings = {
       "Instagram hesabı bağlantısı",
       "Konum ve ulaşım bilgilendirmesi"
     ],
-    paymentNote:
-      "Ödeme ve kapora bilgileri rezervasyon öncesinde resmi iletişim hattı üzerinden net ve yazılı şekilde paylaşılır.",
+    paymentNote: PAYMENT_NOTE,
     checkInOut: "Giriş ve çıkış saatleri rezervasyon sırasında yazılı olarak iletilir.",
     minimumStay: "Minimum gece bilgisi seçilen döneme göre netleştirilir.",
     breakfast: "Kahvaltı bilgisi rezervasyon öncesinde WhatsApp üzerinden net olarak iletilir.",
@@ -92,7 +96,7 @@ export const defaultSettings: SiteSettings = {
   location: {
     visible: true,
     body: "Sapanca / Sakarya’da doğayla iç içe sakin bir konum. Konumu aşağıdaki haritada inceleyebilirsiniz.",
-    parking: "Misafirler için otopark imkânı bulunmaktadır.",
+    parking: PARKING_NOTE,
     nearby: ["Sapanca merkez", "Sapanca Gölü", "Kırkpınar", "Maşukiye"]
   }
 };
@@ -272,7 +276,7 @@ export const defaultFaqs: Faq[] = [
   {
     id: "parking-faq",
     question: "Otopark var mı?",
-    answer: "Misafirler için otopark imkânı bulunmaktadır.",
+    answer: PARKING_NOTE,
     category: "Ulaşım",
     isActive: true,
     sortOrder: 10
@@ -289,8 +293,7 @@ export const defaultFaqs: Faq[] = [
   {
     id: "deposit-faq",
     question: "Kapora / ödeme süreci nasıl ilerliyor?",
-    answer:
-      "Ödeme ve kapora bilgileri rezervasyon öncesinde resmi iletişim hattı üzerinden net ve yazılı şekilde paylaşılır.",
+    answer: PAYMENT_NOTE,
     category: "Rezervasyon",
     isActive: true,
     sortOrder: 12

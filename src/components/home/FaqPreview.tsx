@@ -1,33 +1,34 @@
 import Link from "next/link";
-import { Container } from "@/components/common/Container";
 import { Icon } from "@/components/common/Icon";
+import { Section } from "@/components/common/Section";
 import { SectionHeader } from "@/components/common/SectionHeader";
 import type { Faq } from "@/types/site";
 
 export function FaqPreview({ faqs }: { faqs: Faq[] }) {
   return (
-    <section className="bg-surface py-20">
-      <Container>
-        <div className="mb-10 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeader
-            eyebrow="SSS"
-            title="WhatsApp’a geçmeden önce temel cevaplar"
-            body="Kesinleşmesi gereken tüm konular rezervasyon öncesinde yazılı olarak netleştirilir."
-          />
-          <Link href="/sss" className="inline-flex items-center gap-2 text-sm font-bold text-accent-dark">
-            Tüm soruları gör
-            <Icon name="Play" className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {faqs.slice(0, 8).map((faq) => (
-            <article key={faq.id} className="rounded-lg border border-border bg-background p-5">
-              <h3 className="text-base font-bold text-text">{faq.question}</h3>
-              <p className="mt-3 text-sm leading-7 text-muted">{faq.answer}</p>
-            </article>
-          ))}
-        </div>
-      </Container>
-    </section>
+    <Section tone="surface">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <SectionHeader eyebrow="SSS" title="Sık sorulan sorular" />
+        <Link href="/sss" className="inline-flex min-h-11 shrink-0 items-center gap-2 text-sm font-bold text-accent-dark">
+          Tüm soruları gör
+          <Icon name="ChevronRight" className="h-4 w-4" />
+        </Link>
+      </div>
+      {/* Akordiyon: önceden 5-8 cevap tam metin açıktı ve mobilde ~1400px sürüyordu. */}
+      <div className="mt-8 grid gap-3 lg:mt-10">
+        {faqs.slice(0, 5).map((faq) => (
+          <details key={faq.id} className="group rounded-lg border border-border bg-background px-5">
+            <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-base font-bold text-text [&::-webkit-details-marker]:hidden">
+              {faq.question}
+              <Icon
+                name="ChevronRight"
+                className="h-5 w-5 shrink-0 text-accent-dark transition group-open:rotate-90"
+              />
+            </summary>
+            <p className="pb-5 text-sm leading-7 text-muted">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </Section>
   );
 }

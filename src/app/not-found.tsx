@@ -11,7 +11,7 @@ export default async function NotFound() {
   const settings = await getSiteSettings();
 
   return (
-    <section className="bg-background pb-20 pt-32">
+    <section className="bg-background pb-14 pt-24 sm:pb-20 lg:pt-32">
       <Container className="grid min-h-[62svh] place-items-center">
         <div className="max-w-3xl text-center">
           <p className="text-xs font-bold uppercase tracking-normal text-accent-dark">404</p>

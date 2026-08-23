@@ -20,6 +20,10 @@ export function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 
+// Uzantılı yollar (görsel, video, robots.txt vb.) hariç tutulur: /_next/image
+// optimizasyonu kaynak dosyayı iç istekle çeker ve o istek buraya düştüğünde
+// 301 dönüyordu. Optimizer yönlendirme gövdesini "geçersiz görsel" sayıp 400
+// veriyor, bu yüzden yerel görseller daha önce unoptimized işaretlenmişti.
 export const config = {
-  matcher: ["/((?!_next/static|_next/image).*)"]
+  matcher: ["/((?!_next/static|_next/image|.*\\.[^/]+$).*)"]
 };

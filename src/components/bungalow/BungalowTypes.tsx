@@ -3,6 +3,7 @@
 import type { MouseEvent } from "react";
 import { useState, useSyncExternalStore } from "react";
 import { buttonClassName } from "@/components/common/AppButton";
+import { BungalowVideo } from "@/components/bungalow/BungalowVideo";
 import { Icon } from "@/components/common/Icon";
 import { TrackedLink } from "@/components/common/TrackedLink";
 import { createWhatsappUrl } from "@/lib/whatsapp";
@@ -50,6 +51,10 @@ function formatDate(date: string) {
 }
 
 function createAvailabilityMessage(type: string, checkIn: string, checkOut: string) {
+  if (!checkIn || !checkOut) {
+    return `Merhaba, web siteniz üzerinden size ulaşıyorum. ${type} tipi bungalovunuz için müsaitlik ve fiyat bilgisi alabilir miyim?`;
+  }
+
   const dateRange = `${formatDate(checkIn)} - ${formatDate(checkOut)}`;
 
   return `Merhaba, web siteniz üzerinden size ulaşıyorum. ${type} tipi bungalovunuz için ${dateRange} tarih aralığındaki müsaitliği öğrenebilir miyim?`;
@@ -79,26 +84,20 @@ export function BungalowTypes({ whatsappPhone }: { whatsappPhone: string }) {
   }
 
   return (
-    <section id="bungalov-tipleri" className="scroll-mt-28" aria-labelledby="bungalov-tipleri-baslik">
-      <div className="mx-auto max-w-3xl text-center">
-        <h2 id="bungalov-tipleri-baslik" className="font-serif text-4xl leading-tight text-text sm:text-5xl">
-          Bungalov Tipleri
-        </h2>
-      </div>
-
-      <div className="mt-8 rounded-lg border border-border bg-surface p-4 shadow-[0_18px_50px_rgba(47,58,43,0.08)] sm:p-5">
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-[minmax(13rem,0.8fr)_minmax(0,1fr)_minmax(0,1fr)] md:items-end">
-          <div className="flex items-center gap-3 sm:col-span-2 md:col-span-1 md:self-center">
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-dark text-white">
-              <Icon name="CalendarCheck" className="h-5 w-5" />
+    <div>
+      <div className="rounded-lg border border-border bg-surface p-4 shadow-[0_18px_50px_rgba(47,58,43,0.08)]">
+        <div className="grid gap-3 sm:grid-cols-[auto_minmax(0,1fr)_minmax(0,1fr)] sm:items-end">
+          <div className="flex min-w-0 items-center gap-3 sm:mb-2.5 sm:pr-2">
+            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-dark text-white">
+              <Icon name="CalendarCheck" className="h-4 w-4" />
             </span>
-            <div>
-              <h3 className="font-bold text-text">Konaklama tarihinizi seçin</h3>
-              <p className="mt-0.5 text-xs text-muted">Üç bungalov tipi için ortak tarih</p>
-            </div>
+            <p className="text-sm font-bold text-text">
+              Tarihinizi ekleyin
+              <span className="ml-1.5 font-semibold text-muted">(isteğe bağlı)</span>
+            </p>
           </div>
 
-          <label className="grid gap-2 text-sm font-semibold text-text">
+          <label className="grid min-w-0 gap-1.5 text-xs font-bold text-muted">
             Giriş tarihi
             <input
               type="date"
@@ -106,91 +105,74 @@ export function BungalowTypes({ whatsappPhone }: { whatsappPhone: string }) {
               min={minimumDate}
               onClick={openDatePicker}
               onChange={(event) => handleCheckInChange(event.target.value)}
-              className="min-h-12 w-full cursor-pointer rounded-lg border border-border bg-background px-4 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
+              className="date-field min-h-12 w-full min-w-0 max-w-full cursor-pointer appearance-none rounded-lg border border-border bg-background px-4 text-sm text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
             />
           </label>
-          <label className="grid gap-2 text-sm font-semibold text-text">
+          <label className="grid min-w-0 gap-1.5 text-xs font-bold text-muted">
             Çıkış tarihi
             <input
               type="date"
               value={checkOut}
               min={minimumCheckOut}
-              disabled={!checkIn}
               onClick={openDatePicker}
               onChange={(event) => setCheckOut(event.target.value)}
-              className="min-h-12 w-full cursor-pointer rounded-lg border border-border bg-background px-4 text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:opacity-55"
+              className="date-field min-h-12 w-full min-w-0 max-w-full cursor-pointer appearance-none rounded-lg border border-border bg-background px-4 text-sm text-text outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
             />
           </label>
         </div>
 
         <p className="sr-only" aria-live="polite">
           {hasDateRange
-            ? `${formatDate(checkIn)} giriş — ${formatDate(checkOut)} çıkış`
-            : "WhatsApp butonlarını kullanmak için giriş ve çıkış tarihlerini seçin."}
+            ? `${formatDate(checkIn)} giriş — ${formatDate(checkOut)} çıkış seçildi.`
+            : "Tarih seçmeden de müsaitlik sorabilirsiniz."}
         </p>
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
+      {/* Mobilde yatay snap carousel, md üstünde 3'lü grid. Kartların ekran kenarına
+          taşabilmesi için Container padding'i negatif margin ile telafi edilir. */}
+      <div className="-mx-4 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 md:mx-0 md:mt-10 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
         {bungalowTypes.map((bungalow) => {
-          const message = hasDateRange ? createAvailabilityMessage(bungalow.name, checkIn, checkOut) : "";
+          const message = createAvailabilityMessage(bungalow.name, checkIn, checkOut);
 
           return (
             <article
               key={bungalow.name}
-              className="overflow-hidden rounded-lg border border-border bg-surface shadow-[0_18px_48px_rgba(31,26,23,0.08)]"
+              className="w-[85%] max-w-sm shrink-0 snap-center overflow-hidden rounded-lg border border-border bg-surface shadow-[0_18px_48px_rgba(31,26,23,0.08)] md:w-auto md:max-w-none"
             >
-              <div className="relative aspect-[9/16] overflow-hidden bg-surface-dark">
-                <video
-                  controls
-                  playsInline
-                  preload="metadata"
-                  poster={bungalow.poster}
-                  className="h-full w-full object-cover"
-                  aria-label={`${bungalow.name} Bungalov tanıtım videosu`}
-                >
-                  <source src={bungalow.video} type="video/mp4" />
-                  Tarayıcınız video oynatmayı desteklemiyor.
-                </video>
-                <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-surface-dark/75 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-white backdrop-blur-md">
+              <div className="relative aspect-[4/5] overflow-hidden bg-surface-dark md:aspect-[9/16]">
+                <BungalowVideo src={bungalow.video} poster={bungalow.poster} label={`${bungalow.name} Bungalov`} />
+                <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-surface-dark/75 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-white backdrop-blur-md">
                   {bungalow.name} Bungalov
                 </span>
               </div>
 
-              <div className="p-5">
-                <h3 className="font-serif text-3xl font-semibold text-text">{bungalow.name} Bungalov</h3>
-                <p className="mt-2 text-sm leading-6 text-muted">
-                  Videoyu izleyin, seçtiğiniz tarihler için müsaitlik bilgisini doğrudan alın.
-                </p>
-
-                {hasDateRange ? (
-                  <TrackedLink
-                    href={createWhatsappUrl(whatsappPhone, message)}
-                    event="whatsapp_click_contact"
-                    params={{ bungalow_type: bungalow.name, check_in: checkIn, check_out: checkOut }}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={buttonClassName("whatsapp", "mt-5 w-full")}
-                    aria-label={`${bungalow.name} Bungalov için WhatsApp'tan müsaitlik sor`}
-                  >
-                    <Icon name="MessageCircle" className="h-5 w-5" />
-                    Müsaitlik Sor
-                  </TrackedLink>
-                ) : (
-                  <button
-                    type="button"
-                    disabled
-                    className={buttonClassName("whatsapp", "mt-5 w-full cursor-not-allowed")}
-                    title="Önce giriş ve çıkış tarihlerini seçin"
-                  >
-                    <Icon name="MessageCircle" className="h-5 w-5" />
-                    Müsaitlik Sor
-                  </button>
-                )}
+              <div className="p-4 sm:p-5">
+                <h3 className="font-serif text-2xl font-semibold text-text sm:text-3xl">{bungalow.name} Bungalov</h3>
+                <TrackedLink
+                  href={createWhatsappUrl(whatsappPhone, message)}
+                  event="whatsapp_click_contact"
+                  params={{
+                    cta_location: "bungalow_card",
+                    bungalow_type: bungalow.name,
+                    ...(hasDateRange ? { check_in: checkIn, check_out: checkOut } : {})
+                  }}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={buttonClassName("whatsapp", "mt-4 w-full")}
+                  aria-label={`${bungalow.name} Bungalov için WhatsApp'tan müsaitlik sor`}
+                >
+                  <Icon name="MessageCircle" className="h-5 w-5" />
+                  Müsaitlik Sor
+                </TrackedLink>
               </div>
             </article>
           );
         })}
       </div>
-    </section>
+
+      <p className="mt-3 text-center text-xs font-semibold text-muted md:hidden">
+        Diğer tipleri görmek için yana kaydırın
+      </p>
+    </div>
   );
 }

@@ -23,10 +23,12 @@ const cormorantGaramond = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   manifest: "/manifest.webmanifest",
+  // Sekme ikonu için 2,4 KB'lık 32px varyant kullanılır; 512px sürüm yalnızca
+  // manifest (PWA) tarafında kalır — önceden her sayfa açılışında 135 KB iniyordu.
   icons: {
-    icon: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
-    shortcut: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }],
-    apple: [{ url: "/favicon.png", type: "image/png", sizes: "512x512" }]
+    icon: [{ url: "/favicon-32.png", type: "image/png", sizes: "32x32" }],
+    shortcut: [{ url: "/favicon-32.png", type: "image/png", sizes: "32x32" }],
+    apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }]
   }
 };
 

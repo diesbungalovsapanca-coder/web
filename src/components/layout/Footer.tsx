@@ -22,7 +22,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
   const instagramHandle = getInstagramHandle(settings.contact.instagramUrl);
 
   return (
-    <footer className="bg-surface-dark py-14 text-white">
+    <footer className="footer-safe-area bg-surface-dark py-14 text-white">
       <Container className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="inline-flex items-center gap-3">
