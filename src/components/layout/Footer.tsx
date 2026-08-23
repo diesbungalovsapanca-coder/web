@@ -87,6 +87,33 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           </div>
         </div>
       </Container>
+
+      <Container className="mt-12 flex flex-col items-center gap-3 border-t border-white/10 pt-6 sm:flex-row sm:justify-between">
+        <p className="text-center text-[11px] text-white/45 sm:text-left">
+          © {new Date().getFullYear()} {settings.brand.name}. Tüm hakları saklıdır.
+        </p>
+        <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] text-white/45 sm:justify-end">
+          <span>Tasarım &amp; geliştirme:</span>
+          <a
+            href="https://tuvalsoft.com"
+            target="_blank"
+            rel="nofollow noopener"
+            aria-label="TuvalSoft web sitesi"
+            className="group inline-flex items-center gap-1.5 font-medium text-white/60 transition hover:text-white/90"
+          >
+            <Image
+              src="/assets/tuvalsoft-logo-koyu-zemin.svg"
+              alt=""
+              aria-hidden="true"
+              width={16}
+              height={16}
+              unoptimized
+              className="h-4 w-4 opacity-75 transition group-hover:opacity-100"
+            />
+            TuvalSoft
+          </a>
+        </p>
+      </Container>
     </footer>
   );
 }
