@@ -97,7 +97,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
           <a
             href="https://tuvalsoft.com"
             target="_blank"
-            rel="nofollow noopener"
+            rel="noopener"
             aria-label="TuvalSoft web sitesi"
             className="group inline-flex items-center gap-1.5 font-medium text-white/60 transition hover:text-white/90"
           >
