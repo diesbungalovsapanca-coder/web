@@ -95,7 +95,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
         <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] text-white/45 sm:justify-end">
           <span>Tasarım &amp; geliştirme:</span>
           <a
-            href="https://tuvalsoft.com"
+            href="https://tuvalsoft.com.tr"
             target="_blank"
             rel="noopener"
             aria-label="TuvalSoft web sitesi"
