@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "@/app/globals.css";
 import { SiteChrome } from "@/components/layout/SiteChrome";
-import { GoogleAnalytics } from "@/components/common/GoogleAnalytics";
+import { ConsentBanner } from "@/components/common/ConsentBanner";
 import { JsonLd } from "@/components/common/JsonLd";
 import { SITE_URL, lodgingJsonLd, websiteJsonLd } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/data/site";
@@ -53,7 +53,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <SiteChrome settings={settings}>{children}</SiteChrome>
         <JsonLd data={lodgingJsonLd(settings, schemaImages)} />
         <JsonLd data={websiteJsonLd(settings)} />
-        <GoogleAnalytics />
+        {/* GA4 buradan DOĞRUDAN render edilmez: ConsentBanner onay kapısıdır ve
+            script'i yalnız izin verilmişken yükler. */}
+        <ConsentBanner />
       </body>
     </html>
   );

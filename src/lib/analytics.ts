@@ -1,5 +1,7 @@
 "use client";
 
+import { analyticsAllowed } from "@/lib/consent";
+
 export type AnalyticsEventName =
   | "whatsapp_click_hero"
   | "whatsapp_click_sticky"
@@ -13,6 +15,10 @@ export type AnalyticsEventName =
 
 export function trackEvent(name: AnalyticsEventName, params?: Record<string, unknown>) {
   if (typeof window === "undefined") return;
+
+  // İzin yoksa sessizce hiçbir şey yapma. Script zaten yüklenmemiş oluyor ama
+  // bu ikinci kapı, dataLayer'a birikip sonradan gönderilmesini de engelliyor.
+  if (!analyticsAllowed()) return;
 
   if (typeof window.gtag === "function") {
     window.gtag("event", name, params ?? {});

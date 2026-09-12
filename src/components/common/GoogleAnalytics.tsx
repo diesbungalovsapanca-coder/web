@@ -4,7 +4,17 @@ import Script from "next/script";
 import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-FTGYDHHV8G";
+/**
+ * Ölçüm kimliği YALNIZCA env'den gelir.
+ *
+ * Burada eskiden `|| "G-FTGYDHHV8G"` fallback'i vardı: env tanımlı olmasa bile
+ * GA4 yükleniyordu, yani kimliği kaldırmanın hiçbir yolu yoktu. Kimlik artık
+ * `.env.example:11` ve README'de belgeli, koda gömülü değil.
+ *
+ * Bu bileşeni doğrudan render ETME -- `ConsentBanner` yalnız izin varken
+ * render eder. Kök layout'a geri taşınırsa onay kapısı devre dışı kalır.
+ */
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 function PageViewTracker({ enabled }: { enabled: boolean }) {
   const pathname = usePathname();
